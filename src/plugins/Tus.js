@@ -219,32 +219,19 @@ module.exports = class Tus extends Plugin {
       }
 
       this.uppy.emit('upload-started', file)
-
-      fetch(file.remote.url, {
-        method: 'post',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(Object.assign({}, file.remote.body, {
+      file.remote.provider.post(
+        file.remote.url,
+        Object.assign({}, file.remote.body, {
           endpoint: opts.endpoint,
           uploadUrl: opts.uploadUrl,
           protocol: 'tus',
           size: file.data.size,
           metadata: file.meta
-        }))
-      })
-      .then((res) => {
-        if (res.status < 200 || res.status > 300) {
-          return reject(res.statusText)
-        }
-
-        return res.json().then((data) => {
-          this.uppy.setFileState(file.id, { serverToken: data.token })
-          file = this.getFile(file.id)
-          return file
         })
+      ).then((res) => {
+        this.uppy.setFileState(file.id, { serverToken: res.token })
+        file = this.getFile(file.id)
+        return file
       })
       .then((file) => {
         return this.connectToServerSocket(file)

@@ -3,7 +3,6 @@ const Translator = require('../../core/Translator')
 const { h } = require('preact')
 const { RequestClient } = require('../../server')
 const UrlUI = require('./UrlUI.js')
-require('whatwg-fetch')
 
 /**
  * Url
