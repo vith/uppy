@@ -240,8 +240,8 @@ module.exports = class Dashboard extends Plugin {
       document.body.classList.add('uppy-Dashboard-isOpen')
     }
 
+    this.rerender()
     this.updateDashboardElWidth()
-    // this.setFocusToFirstNode()
     this.setFocusToBrowse()
   }
 
@@ -486,7 +486,9 @@ module.exports = class Dashboard extends Plugin {
       proudlyDisplayPoweredByUppy: this.opts.proudlyDisplayPoweredByUppy,
       currentWidth: pluginState.containerWidth,
       isWide: pluginState.containerWidth > 400,
-      isTargetDOMEl: this.isTargetDOMEl
+      isTargetDOMEl: this.isTargetDOMEl,
+      allowedFileTypes: this.uppy.opts.restrictions.allowedFileTypes,
+      maxNumberOfFiles: this.uppy.opts.restrictions.maxNumberOfFiles
     })
   }
 
