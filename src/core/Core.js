@@ -33,7 +33,13 @@ class Uppy {
         uppyServerError: 'Connection with Uppy Server failed',
         failedToUpload: 'Failed to upload',
         noInternetConnection: 'No Internet connection',
-        connectedToInternet: 'Connected to the Internet'
+        connectedToInternet: 'Connected to the Internet',
+        selectXFiles: {
+          0: 'Select %{smart_count} file',
+          1: 'Select %{smart_count} files'
+        },
+        cancel: 'Cancel',
+        logOut: 'Log out'
       }
     }
 

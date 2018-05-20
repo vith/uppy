@@ -521,19 +521,18 @@ module.exports = class ProviderView {
     const { authenticated, checkAuthInProgress, loading } = this.plugin.getPluginState()
 
     if (loading) {
-      return LoaderView()
+      return <LoaderView />
     }
 
     if (!authenticated) {
-      return h(AuthView, {
-        pluginName: this.plugin.title,
-        pluginIcon: this.plugin.icon,
-        demo: this.plugin.opts.demo,
-        checkAuth: this.checkAuth,
-        handleAuth: this.handleAuth,
-        handleDemoAuth: this.handleDemoAuth,
-        checkAuthInProgress: checkAuthInProgress
-      })
+      return <AuthView
+        pluginName={this.plugin.title}
+        pluginIcon={this.plugin.icon}
+        demo={this.plugin.opts.demo}
+        checkAuth={this.checkAuth}
+        handleAuth={this.handleAuth}
+        handleDemoAuth={this.handleDemoAuth}
+        checkAuthInProgress={checkAuthInProgress} />
     }
 
     const browserProps = Object.assign({}, this.plugin.getPluginState(), {
@@ -560,9 +559,10 @@ module.exports = class ProviderView {
       showTitles: this.opts.showTitles,
       showFilter: this.opts.showFilter,
       showBreadcrumbs: this.opts.showBreadcrumbs,
-      pluginIcon: this.plugin.icon
+      pluginIcon: this.plugin.icon,
+      i18n: this.plugin.uppy.i18n
     })
 
-    return Browser(browserProps)
+    return <Browser {...browserProps} />
   }
 }
